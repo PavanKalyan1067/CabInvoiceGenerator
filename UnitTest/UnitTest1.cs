@@ -5,7 +5,6 @@ namespace TestProject1
     [TestClass]
     public class UnitTest1
     {
-
         /// <summary>
         /// UC1-Return the total fare for normal ride
         /// </summary>
@@ -82,7 +81,6 @@ namespace TestProject1
         {
             InvoiceGenerator invoice = new InvoiceGenerator(RideType.PREMIUM_RIDE);
             Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
-
             InvoiceSummary summary = new InvoiceSummary(2, 55.0);
             InvoiceSummary expected = invoice.CalculateFare(rides);
             Assert.AreEqual(summary.totalFare, expected.totalFare);
@@ -95,7 +93,6 @@ namespace TestProject1
         {
             InvoiceGenerator invoice = new InvoiceGenerator(RideType.PREMIUM_RIDE);
             Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
-
             InvoiceSummary summary = new InvoiceSummary(2, 55.0);
             InvoiceSummary expected = invoice.CalculateFare(rides);
             Assert.AreEqual(summary.avgFare, expected.avgFare);
@@ -108,10 +105,26 @@ namespace TestProject1
         {
             InvoiceGenerator invoice = new InvoiceGenerator(RideType.PREMIUM_RIDE);
             Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
-
             InvoiceSummary summary = new InvoiceSummary(2, 55.0);
             InvoiceSummary expected = invoice.CalculateFare(rides);
             Assert.AreEqual(summary.numOfRides, expected.numOfRides);
+        }
+        /// <summary>
+        /// UC4-Adding the data in the list correponding userid and rides
+        /// </summary>
+        [TestMethod]
+        public void Given_UserId_Return_Fare()
+        {
+            Ride[] rides = { new Ride(2.0, 5), new Ride(0.1, 1) };
+            RideRepository rideRepository = new RideRepository();
+            rideRepository.AddRide(1, rides);
+            rideRepository.AddRide(2, rides);
+            var rideArray = rideRepository.GetRides(1);
+            InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL_RIDE);
+
+            InvoiceSummary summary = new InvoiceSummary(2, 30.0);
+            InvoiceSummary expected = invoice.CalculateFare(rideArray);
+            Assert.AreEqual(summary.totalFare, expected.totalFare);
         }
     }
 }

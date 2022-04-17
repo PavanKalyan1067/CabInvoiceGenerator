@@ -5,9 +5,10 @@ namespace CabInvoiceGenerator
 {
     public class InvoiceGenerator
     {
-        //Declaring ride Type
 
+        //Declaring ride Type
         RideType type;
+        public RideRepository rideRepository;
         //Declaring Varaibles
         private double MINIMUM_COST_PER_KM;
         private int COST_PER_TIME;
@@ -16,6 +17,7 @@ namespace CabInvoiceGenerator
         public InvoiceGenerator(RideType type)
         {
             this.type = type;
+            this.rideRepository = new RideRepository();
             //Initializing varaibles for Normal Ride
             if (type.Equals(RideType.NORMAL_RIDE))
             {
