@@ -5,6 +5,7 @@ namespace TestProject1
     [TestClass]
     public class UnitTest1
     {
+
         /// <summary>
         /// UC1-Return the total fare for normal ride
         /// </summary>
